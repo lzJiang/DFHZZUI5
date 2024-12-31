@@ -1,0 +1,37 @@
+managed implementation in class ZBP_R_ZT_UI5_ODATA unique;
+
+define behavior for ZR_ZT_UI5_ODATA alias ZrZtUi5Odata
+implementation in class ZBP_R_ZT_UI5_ODATA unique
+with unmanaged save
+//persistent table ZZT_UI5_ODATA
+lock master
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   Uuid;
+  field ( mandatory : create )
+   Requestcode;
+
+  field ( readonly : update )
+   Uuid;
+  field ( readonly : update )
+   Requestcode;
+
+
+  create;
+  update;
+  delete;
+
+  determination setReturn on modify { create; }
+
+  mapping for ZZT_UI5_ODATA
+  {
+    Uuid = uuid;
+    Requestcode = requestcode;
+    Requestparameter = requestparameter;
+    Returncode = returncode;
+    Returnmessage = returnmessage;
+    Returnresult = returnresult;
+  }
+}

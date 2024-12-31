@@ -1,0 +1,12 @@
+@EndUserText: {
+  label: '此项的服务定义 ZC_ZT_UI5_ODATA'
+}
+@ObjectModel: {
+  leadingEntity: {
+    name: 'ZC_ZT_UI5_ODATA'
+  }
+}
+define service ZAPI_ZT_UI5_ODATA_O4
+  provider contracts odata_v4_webapi {
+  expose ZC_ZT_UI5_ODATA;
+}

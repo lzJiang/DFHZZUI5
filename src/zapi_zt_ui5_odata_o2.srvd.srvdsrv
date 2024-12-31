@@ -1,0 +1,4 @@
+@EndUserText.label: 'ODATA_V2'
+define service ZAPI_ZT_UI5_ODATA_O2 {
+  expose ZC_ZT_UI5_ODATA;
+}

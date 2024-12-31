@@ -1,0 +1,9 @@
+projection implementation in class ZBP_C_ZT_UI5_ODATA unique;
+
+define behavior for ZC_ZT_UI5_ODATA alias ZcZtUi5Odata
+
+{
+  use create;
+  use update;
+  use delete;
+}

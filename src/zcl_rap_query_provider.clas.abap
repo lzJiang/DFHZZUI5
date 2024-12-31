@@ -1,0 +1,20 @@
+CLASS zcl_rap_query_provider DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_rap_query_provider .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS ZCL_RAP_QUERY_PROVIDER IMPLEMENTATION.
+
+
+  METHOD if_rap_query_provider~select.
+  ENDMETHOD.
+ENDCLASS.
