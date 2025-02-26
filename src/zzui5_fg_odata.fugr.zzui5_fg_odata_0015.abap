@@ -60,7 +60,7 @@ FUNCTION zzui5_fg_odata_0015.
     lv_where = | { lv_where } and zcreate_date <= '{ ls_input-zcreate_dateend }'|.
   ENDIF.
   IF ls_input-zjname IS NOT INITIAL.
-    lv_where = | { lv_where } and zjname like '%{ ls_input-zllno }%'|.
+    lv_where = | { lv_where } and zjname like '%{ ls_input-zjname }%'|.
   ENDIF.
   IF ls_input-zcjtext IS NOT INITIAL.
     lv_where = | { lv_where } and zcjtext like '%{ ls_input-zcjtext }%'|.

@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "领料平台",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50008"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_757A53A21E7D667EBBDB882314430949385C939E_TM",
+    "semanticObject": "zui50008",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_757A53A21E7D667EBBDB882314430949385C939E_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "领料平台"
+      }
+    }
+  ]
+}

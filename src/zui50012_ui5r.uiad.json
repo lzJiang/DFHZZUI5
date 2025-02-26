@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "批次特性批导",
+    "originalLanguage": "zh",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50012"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_A76D5952ADC6769083EABFF8D25B0379247DF520_TM",
+    "semanticObject": "zui50012",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_A76D5952ADC6769083EABFF8D25B0379247DF520_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "批次特性批导"
+      }
+    }
+  ]
+}

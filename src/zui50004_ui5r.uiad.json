@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "生产领料单",
+    "originalLanguage": "zh",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50004"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_3A2CC9620524CD1B131D0707838B67D1028A3127_TM",
+    "semanticObject": "zui50004",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_3A2CC9620524CD1B131D0707838B67D1028A3127_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "生产领料单"
+      }
+    }
+  ]
+}

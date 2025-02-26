@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "物料凭证批导",
+    "originalLanguage": "zh",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50014"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_38DF012A203E60F1829F00A46F4C902F25BC586B_TM",
+    "semanticObject": "zui50014",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_38DF012A203E60F1829F00A46F4C902F25BC586B_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "物料凭证批导"
+      }
+    }
+  ]
+}

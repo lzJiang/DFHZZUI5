@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "其他领料单",
+    "originalLanguage": "zh",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50006"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_6D2AD08DFEE64ACFE53196F07FF3918611C1525C_TM",
+    "semanticObject": "zui50006",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_6D2AD08DFEE64ACFE53196F07FF3918611C1525C_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "其他领料单"
+      }
+    }
+  ]
+}

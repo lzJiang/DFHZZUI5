@@ -22,7 +22,7 @@ FUNCTION zzui5_fg_odata_0001.
    WHERE code = @request_code
      INTO @lv_function.
   CONDENSE request_parameter NO-GAPS.
-  TRANSLATE request_parameter TO UPPER CASE.
+*  TRANSLATE request_parameter TO UPPER CASE.
   IF lv_function IS NOT INITIAL.
     TRY.
         CALL FUNCTION lv_function

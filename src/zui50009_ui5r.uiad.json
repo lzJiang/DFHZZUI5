@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "领料单管理",
+    "originalLanguage": "zh",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50009"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_4CF83C4ACD6AFF43F4CFF94FA324EE8AB0309C50_TM",
+    "semanticObject": "zui50009",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_4CF83C4ACD6AFF43F4CFF94FA324EE8AB0309C50_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "领料单管理"
+      }
+    }
+  ]
+}

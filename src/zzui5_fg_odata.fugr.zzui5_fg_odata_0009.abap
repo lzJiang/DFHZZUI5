@@ -92,6 +92,8 @@ FUNCTION zzui5_fg_odata_0009.
           <fs_out>-jxje = <fs_out>-jxje + ls_item-amountintransactioncurrency.
         ELSEIF ls_item-debitcreditcode = 'H'.
           <fs_out>-dxje = <fs_out>-dxje + ls_item-amountintransactioncurrency.
+        ELSE.
+          <fs_out>-jxje = <fs_out>-jxje + ls_item-amountintransactioncurrency.
         ENDIF.
         IF ls_item-customer IS NOT INITIAL.
           <fs_out>-customer = ls_item-customer.

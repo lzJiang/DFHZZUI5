@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "管理生产计划",
+    "originalLanguage": "zh",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "zui50002"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_22BF4B941FE72A0B41BA395A69DDFCE364A396C0_TM",
+    "semanticObject": "zui50002",
+    "action": "maintain",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_22BF4B941FE72A0B41BA395A69DDFCE364A396C0_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "管理生产计划"
+      }
+    }
+  ]
+}

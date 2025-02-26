@@ -1,4 +1,4 @@
-FUNCTION zzui5_fg_odata_0018.
+FUNCTION zzui5_fg_odata_0029.
 *"----------------------------------------------------------------------
 *"*"本地接口：
 *"  IMPORTING
@@ -8,16 +8,26 @@ FUNCTION zzui5_fg_odata_0018.
 *"     VALUE(RETURN_MESSAGE) TYPE  STRING
 *"     VALUE(RETURN_RESULT) TYPE  STRING
 *"----------------------------------------------------------------------
-
   TYPES:BEGIN OF ty_input,
-          product     TYPE i_producttext-product,
-          productname TYPE i_producttext-productname,
+          manufacturingorder TYPE zc_pp002-manufacturingorder,
         END OF ty_input.
+  TYPES:BEGIN OF ty_out,
+          manufacturingorder TYPE zc_pp002-manufacturingorder,
+          yy1_mfgbatch_ord   TYPE zc_pp002-yy1_mfgbatch_ord,
+          cp                 TYPE zc_pp002-material,
+          cpname             TYPE zc_pp002-productname,
+          yy1_mfgdate        TYPE zc_pp002-yy1_mfgdate,
+        END OF ty_out.
 
-  DATA:ls_input TYPE ty_input.
+  DATA:ls_input TYPE ty_input,
+       ls_out   TYPE ty_out.
+  DATA:lv_year  TYPE string,
+       lv_month TYPE string,
+       lv_day   TYPE string.
   DATA:lv_where TYPE string.
 
-  lv_where = | product ne '' and Language = '1' |.
+  lv_where = | manufacturingorder ne ''|.
+
 
   "3. JSON报文转换为结构
   CALL METHOD /ui2/cl_json=>deserialize(
@@ -26,30 +36,21 @@ FUNCTION zzui5_fg_odata_0018.
       pretty_name = /ui2/cl_json=>pretty_mode-none "格式化参数，NONE：字段名称大写
     CHANGING
       data        = ls_input ). "数据源CREATE OBJECT json_des.
+  MOVE-CORRESPONDING ls_input TO ls_out.
+  ls_input-manufacturingorder = |{ ls_input-manufacturingorder ALPHA = IN }|.
+  SELECT SINGLE manufacturingorder,
+                yy1_mfgbatch_ord,
+                material AS cp,
+                productname AS cpname,
+                yy1_mfgdate
+           FROM zc_pp002 WITH PRIVILEGED ACCESS
+          WHERE manufacturingorder = @ls_input-manufacturingorder
+           INTO CORRESPONDING FIELDS OF @ls_out.
 
-  IF ls_input-product IS NOT INITIAL.
-    lv_where = | { lv_where } and product like '%{ ls_input-product }%'|.
-  ENDIF.
-  IF ls_input-productname IS NOT INITIAL.
-    lv_where = | { lv_where } or productname like '%{ ls_input-productname }%'|.
-  ENDIF.
-
-  SELECT product,
-         productname
-    FROM i_producttext WITH PRIVILEGED ACCESS
-    WHERE (lv_where)
-    INTO TABLE @DATA(lt_out).
-
-  SORT lt_out BY product.
-  IF lt_out[] IS NOT INITIAL.
-    LOOP AT lt_out ASSIGNING FIELD-SYMBOL(<fs_out>).
-      <fs_out>-product = |{ <fs_out>-product ALPHA = OUT }|.
-      CONDENSE <fs_out>-product NO-GAPS.
-    ENDLOOP.
-
-    DATA(lv_lines) = lines( lt_out ).
+  IF ls_out IS NOT INITIAL.
+    ls_out-manufacturingorder = |{ ls_out-manufacturingorder ALPHA = OUT }|.
+    ls_out-cp = |{ ls_out-cp ALPHA = OUT }|.
     return_code = 'S'.
-    return_message = |共查询{ lv_lines }条数据！|.
   ELSE.
     return_code = 'E'.
     return_message = '未查询到有效数据！'.
@@ -61,7 +62,7 @@ FUNCTION zzui5_fg_odata_0018.
 *&---序列化JSON SERIALIZE JSON
   /ui2/cl_json=>serialize(
             EXPORTING
-                    data          = lt_out[]
+                    data          = ls_out
                     compress      = abap_false
                     pretty_name   = /ui2/cl_json=>pretty_mode-low_case
             RECEIVING

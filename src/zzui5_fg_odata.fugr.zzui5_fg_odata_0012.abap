@@ -135,6 +135,8 @@ FUNCTION zzui5_fg_odata_0012.
       TRY.
           CONDENSE <fs_out>-zcy NO-GAPS.
           lv_zcy = <fs_out>-zcy.
+*          DATA(lv_zcy_str) = zcl_com_util=>get_zcy( <fs_out>-zcy ).
+*          lv_zcy = lv_zcy_str.
           lv_zcy = lv_zcy * ( <fs_out>-cpqty / <fs_out>-zjbsl ) * ( <fs_out>-requestedqty / <fs_out>-zjQty ).
           <fs_out>-zcy = lv_zcy.
           CONDENSE <fs_out>-zcy NO-GAPS.
