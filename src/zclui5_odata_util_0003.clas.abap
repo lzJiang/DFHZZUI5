@@ -360,6 +360,7 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
             subcontractor             TYPE string,
             unloadingpointname        TYPE string,
             reserve1                  TYPE string,
+            reserve2                  TYPE string,
           END OF ty_item.
     TYPES BEGIN OF ty_send.
     TYPES:plant           TYPE string,
@@ -386,9 +387,10 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
          lt_ptab TYPE abap_parmbind_tab.
     DATA:lv_numb TYPE zzenumb VALUE 'PP005'.
     DATA:lv_data TYPE string.
-    DATA:lv_msgty TYPE bapi_mtype,
-         lv_msgtx TYPE bapi_msg,
-         lv_resp  TYPE string.
+    DATA:lv_msgty    TYPE bapi_mtype,
+         lv_msgtx    TYPE bapi_msg,
+         lv_resp     TYPE string,
+         lv_material TYPE matnr.
 
     "获取领料单抬头和行项目信息
     SELECT SINGLE a~*,
@@ -435,12 +437,25 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
     && |T{ ls_head-a-zcreate_time+0(2) }:{ ls_head-a-zcreate_time+2(2) }:{ ls_head-a-zcreate_time+4(2) }.000Z|.
 
     LOOP AT lt_item ASSIGNING FIELD-SYMBOL(<fs_item>).
+      CLEAR:lv_material.
       APPEND INITIAL LINE TO ls_send-details ASSIGNING FIELD-SYMBOL(<fs_detail>).
       <fs_detail>-reservationitem1 = <fs_item>-a-zllitemno.
       <fs_detail>-reservationitem1 = |{ <fs_detail>-reservationitem1 ALPHA = OUT }|.
       CONDENSE <fs_detail>-reservationitem1 NO-GAPS.
       <fs_detail>-material = |{ <fs_item>-a-zj ALPHA = OUT }|.
       CONDENSE <fs_detail>-material NO-GAPS.
+      zcl_com_util=>matnr_zero_in( EXPORTING input = <fs_detail>-material
+                                   IMPORTING output = lv_material ).
+      SELECT SINGLE *
+               FROM i_productplantsupplyplanning WITH PRIVILEGED ACCESS
+              WHERE product  = @lv_material
+                AND plant = '4100'
+               INTO @DATA(ls_productplantsupplyplanning).
+      if ls_productplantsupplyplanning-DfltStorageLocationExtProcmt = '1003'.
+        <fs_detail>-reserve2 = '4100'.
+      ELSE.
+        <fs_detail>-reserve2 = '1100'.
+      endif.
       <fs_detail>-productname = <fs_item>-a-zjname.
       <fs_detail>-requestedqty = <fs_item>-a-requestedqty.
       <fs_detail>-entryunit = <fs_item>-unitofmeasure_e.
@@ -486,6 +501,7 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
                ( abap = 'Subcontractor'              json = 'subcontractor'                 )
                ( abap = 'UnloadingPointName'         json = 'unloadingPointName'            )
                ( abap = 'reserve1'                   json = 'reserve1'                      )
+               ( abap = 'reserve2'                   json = 'reserve2'                      )
                ).
 
     "获取调用类
@@ -553,6 +569,7 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
             versionnumber      TYPE string,
             manufacturingorder TYPE string,
             storage            TYPE string,
+            reserve2           TYPE string,
           END OF ty_item.
     TYPES BEGIN OF ty_send.
     TYPES:plant           TYPE string,
@@ -582,7 +599,8 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
     DATA:lv_data TYPE string.
     DATA:lv_msgty TYPE bapi_mtype,
          lv_msgtx TYPE bapi_msg,
-         lv_resp  TYPE string.
+         lv_resp  TYPE string,
+         lv_material type matnr.
 
     "获取领料单抬头和行项目信息
     SELECT SINGLE a~*,
@@ -630,12 +648,25 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
     && |T{ ls_head-a-zcreate_time+0(2) }:{ ls_head-a-zcreate_time+2(2) }:{ ls_head-a-zcreate_time+4(2) }.000Z|.
 
     LOOP AT lt_item ASSIGNING FIELD-SYMBOL(<fs_item>).
+      clear:lv_material.
       APPEND INITIAL LINE TO ls_send-details ASSIGNING FIELD-SYMBOL(<fs_detail>).
       <fs_detail>-reservationitem1 = <fs_item>-a-zllitemno.
       <fs_detail>-reservationitem1 = |{ <fs_detail>-reservationitem1 ALPHA = OUT }|.
       CONDENSE <fs_detail>-reservationitem1 NO-GAPS.
       <fs_detail>-material = |{ <fs_item>-a-zj ALPHA = OUT }|.
       CONDENSE <fs_detail>-material NO-GAPS.
+      zcl_com_util=>matnr_zero_in( EXPORTING input = <fs_detail>-material
+                                   IMPORTING output = lv_material ).
+      SELECT SINGLE *
+               FROM i_productplantsupplyplanning WITH PRIVILEGED ACCESS
+              WHERE product  = @lv_material
+                AND plant = '4100'
+               INTO @DATA(ls_productplantsupplyplanning).
+      if ls_productplantsupplyplanning-DfltStorageLocationExtProcmt = '1003'.
+        <fs_detail>-reserve2 = '4100'.
+      ELSE.
+        <fs_detail>-reserve2 = '1100'.
+      endif.
       <fs_detail>-productname = <fs_item>-a-zjname.
       <fs_detail>-requestedqty = <fs_item>-a-requestedqty.
       <fs_detail>-entryunit = <fs_item>-unitofmeasure_e.
@@ -709,6 +740,7 @@ CLASS ZCLUI5_ODATA_UTIL_0003 IMPLEMENTATION.
                ( abap = 'materialmfgdate'            json = 'materialmfgdate'               )
                ( abap = 'materialmfgdate1'           json = 'materialmfgdate1'              )
                ( abap = 'versionnumber'              json = 'versionnumber'              )
+               ( abap = 'reserve2'                   json = 'reserve2'              )
                ).
 
     "获取调用类

@@ -273,10 +273,10 @@ CLASS ZCLUI5_ODATA_UTIL_0008 IMPLEMENTATION.
     ls_req-sales_organization = ls_input_1-salesorganization.
     IF ls_req-sales_organization CP '3*'.
       fsysid = 'XYW'.
-      lv_storelocation = '3000'.
+*      lv_storelocation = '3000'.
     ELSE.
       fsysid = 'JXC'.
-      lv_storelocation = '1000'.
+*      lv_storelocation = '1000'.
     ENDIF.
     ls_req-purchase_order_by_customer = ls_input_1-purchaseorderbycustomer.
     ls_req-customer_payment_terms = 'N000'.
@@ -289,7 +289,7 @@ CLASS ZCLUI5_ODATA_UTIL_0008 IMPLEMENTATION.
       <fs_result>-requested_quantity = ls_input-requestedquantity.
       <fs_result>-requested_quantity_unit = ls_input-requestedquantityunit.
       <fs_result>-production_plant = ls_input-productionplant.
-      <fs_result>-storage_location = lv_storelocation.
+      <fs_result>-storage_location = ls_input-location.
       <fs_result>-batch = ls_input-batch.
       APPEND INITIAL LINE TO <fs_result>-to_pricing_element-results ASSIGNING FIELD-SYMBOL(<fs_price_result>).
       <fs_price_result>-condition_rate_value = ls_input-conditionratevalue.

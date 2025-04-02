@@ -17,6 +17,7 @@ FUNCTION zzui5_fg_odata_0003.
           mfgorderplannedstartdate TYPE zc_pp002-mfgorderplannedstartdate,
           mfgorderplannedenddate   TYPE zc_pp002-mfgorderplannedenddate,
           productname              TYPE zc_pp002-productname,
+          status                   TYPE string,
         END OF ty_input.
 
   DATA:ls_input TYPE ty_input.
@@ -56,7 +57,15 @@ FUNCTION zzui5_fg_odata_0003.
   IF ls_input-productname IS NOT INITIAL.
     lv_where = | { lv_where } and productname like '%{ ls_input-productname }%'|.
   ENDIF.
-
+  IF ls_input-status IS NOT INITIAL AND ls_input-status NE 'orderisll'.
+    IF ls_input-status = 'yy1_approvestatus_n'.
+      lv_where = | { lv_where } and yy1_approvestatus = 'N'|.
+    ELSEIF ls_input-status = 'yy1_approvestatus_y'.
+      lv_where = | { lv_where } and yy1_approvestatus = 'Y' and yy1_check is not initial|.
+    ELSE.
+      lv_where = | { lv_where } and { ls_input-status } = 'X'|.
+    ENDIF.
+  ENDIF.
 
   SELECT *
     FROM zc_pp002
@@ -65,9 +74,25 @@ FUNCTION zzui5_fg_odata_0003.
 
   SORT lt_out BY manufacturingorder.
   IF lt_out[] IS NOT INITIAL.
+
     LOOP AT lt_out ASSIGNING FIELD-SYMBOL(<fs_out>).
+      DATA(lv_tabix) = sy-tabix.
       <fs_out>-manufacturingorder = |{ <fs_out>-manufacturingorder ALPHA = OUT }|.
       <fs_out>-material = |{ <fs_out>-material ALPHA = OUT }|.
+      data(lv_aufnr) = |%{ <fs_out>-manufacturingorder }|.
+      SELECT SINGLE a~*
+        FROM zzt_pp_002_itemd WITH PRIVILEGED ACCESS AS a
+       INNER JOIN zzt_pp_002_head WITH PRIVILEGED ACCESS AS b
+          ON a~zllno = b~zllno
+      WHERE a~manufacturingorder LIKE @lv_aufnr
+        AND b~zllzt = 'RELEASE'
+       INTO @DATA(ls_zlld).
+      IF sy-subrc = 0.
+        <fs_out>-orderisll = 'X'.
+      ENDIF.
+      IF ls_input-status = 'orderisll' AND <fs_out>-orderisll IS INITIAL.
+        delete lt_out INDEX lv_tabix.
+      ENDIF.
     ENDLOOP.
 
     DATA(lv_lines) = lines( lt_out ).

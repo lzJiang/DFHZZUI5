@@ -58,7 +58,7 @@ CLASS ZCLUI5_ODATA_UTIL_0005 IMPLEMENTATION.
       ENTITY batch
         UPDATE FROM VALUE #( ( material          = lv_material
                                batch             = ls_input-batch
-                               manufacturedate   = ls_input-manufacturedate
+                               manufacturedate   = lv_manufacturedate
                                batchbysupplier   = lv_batchbysupplier
                                %control-manufacturedate = cl_abap_behv=>flag_changed
                                %control-batchbysupplier = cl_abap_behv=>flag_changed
